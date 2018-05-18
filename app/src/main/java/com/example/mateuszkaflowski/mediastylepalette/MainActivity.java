@@ -45,8 +45,8 @@ public class MainActivity extends Activity {
     private MediaSessionCompat mediaSessionCompat;
     private Bitmap icon;
 
-    int[] ids = {R.drawable.nagrales, R.drawable.tim, R.drawable.cover, R.drawable.wandzel, R.drawable.english,
-            R.drawable.retrospektywa, R.drawable.hammerzeit};
+    int[] ids = {R.drawable.b, R.drawable.c, R.drawable.d, R.drawable.e,
+            R.drawable.f, R.drawable.g, R.drawable.h};
     private int drawableId;
     int i = 0;
 
