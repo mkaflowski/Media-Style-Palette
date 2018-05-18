@@ -53,6 +53,7 @@ public class ImageUtils {
     public boolean isGrayscale(Bitmap bitmap) {
         int height = bitmap.getHeight();
         int width = bitmap.getWidth();
+
         // shrink to a more manageable (yet hopefully no more or less colorful) size
         if (height > COMPACT_BITMAP_SIZE || width > COMPACT_BITMAP_SIZE) {
             if (mTempCompactBitmap == null) {
