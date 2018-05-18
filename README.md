@@ -1,8 +1,8 @@
 # Media-Style-Palette
 
-![Alt Text](https://github.com/mkaflowski/Media-Style-Palette/blob/master/images/demo.gif?raw=true)
-
 The library uses system methods to get MediaStyle notification colors from Android Oreo.
+
+![Alt Text](https://github.com/mkaflowski/Media-Style-Palette/blob/master/images/demo.gif?raw=true)
 
 ## Installation
 
