@@ -16,7 +16,7 @@ To use the library, first include it your project using Gradle
     }
 
 	dependencies {
-	        compile 'com.github.mkaflowski:Media-Style-Palette:1.x'
+	        compile 'com.github.mkaflowski:Media-Style-Palette:1.1'
 	}
 	
 ## How to use
