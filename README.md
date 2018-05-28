@@ -19,7 +19,7 @@ Add JitPack in your root build.gradle at the end of repositories:
 Add it as a dependency in your app's build.gradle file:
 ```
     dependencies {
-        compile 'com.github.mkaflowski:GDPRDialog:1.x' //CHANGE X TO CURRENT VERSION!!!
+        compile 'com.github.mkaflowski:Media-Style-Palette:1.x' //CHANGE X TO CURRENT VERSION!!!
     }
 ```
 	
