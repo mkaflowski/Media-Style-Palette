@@ -6,18 +6,22 @@ The library uses system methods to get MediaStyle notification colors from Andro
 
 ## Installation
 
-To use the library, first include it your project using Gradle
-
+Add JitPack in your root build.gradle at the end of repositories:
+```
     allprojects {
         repositories {
             jcenter()
             maven { url "https://jitpack.io" }
         }
     }
+```
 
-	dependencies {
-	        compile 'com.github.mkaflowski:Media-Style-Palette:1.1'
-	}
+Add it as a dependency in your app's build.gradle file:
+```
+    dependencies {
+        compile 'com.github.mkaflowski:GDPRDialog:1.x' //CHANGE X TO CURRENT VERSION!!!
+    }
+```
 	
 ## How to use
 
