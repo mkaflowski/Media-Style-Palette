@@ -22,6 +22,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
 import android.support.annotation.NonNull;
@@ -98,16 +99,27 @@ public class MediaNotificationProcessor {
         this.context = context;
     }
 
-    public void getPaletteAsync(OnPaletteLoadedListener onPaletteLoadedListener, Drawable drawable) {
+    public void getPaletteAsync(final OnPaletteLoadedListener onPaletteLoadedListener, Drawable drawable) {
         this.drawable = drawable;
-        getMediaPalette();
-        onPaletteLoadedListener.onPaletteLoaded(this);
+        final Handler handler = new Handler();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getMediaPalette();
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        onPaletteLoadedListener.onPaletteLoaded(MediaNotificationProcessor.this);
+                    }
+                });
+            }
+        }).start();
+
     }
 
     public void getPaletteAsync(OnPaletteLoadedListener onPaletteLoadedListener, Bitmap bitmap) {
         this.drawable = new BitmapDrawable(context.getResources(), bitmap);
-        getMediaPalette();
-        onPaletteLoadedListener.onPaletteLoaded(this);
+        getPaletteAsync(onPaletteLoadedListener, this.drawable);
     }
 
 
