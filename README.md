@@ -33,4 +33,8 @@ int primaryTextColor = processor.getPrimaryTextColor();
 int secondaryTextColor = processor.getSecondaryTextColor();
 	
 boolean isLight = processor.isLight();
+
+// for async processing:
+final MediaNotificationProcessor processor = new MediaNotificationProcessor(this);
+processor.getPaletteAsync(onPaletteLoadedListener, bitmap);
 ```
