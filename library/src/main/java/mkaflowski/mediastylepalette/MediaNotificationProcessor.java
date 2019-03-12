@@ -94,6 +94,22 @@ public class MediaNotificationProcessor {
         getMediaPalette();
     }
 
+    public MediaNotificationProcessor(Context context) {
+        this.context = context;
+    }
+
+    public void getPaletteAsync(OnPaletteLoadedListener onPaletteLoadedListener, Drawable drawable) {
+        this.drawable = drawable;
+        getMediaPalette();
+        onPaletteLoadedListener.onPaletteLoaded(this);
+    }
+
+    public void getPaletteAsync(OnPaletteLoadedListener onPaletteLoadedListener, Bitmap bitmap) {
+        this.drawable = new BitmapDrawable(context.getResources(), bitmap);
+        getMediaPalette();
+        onPaletteLoadedListener.onPaletteLoaded(this);
+    }
+
 
     /**
      * Processes a drawable and calculates the appropriate colors that should
@@ -447,5 +463,9 @@ public class MediaNotificationProcessor {
 
     public int getBackgroundColor() {
         return backgroundColor;
+    }
+
+    public interface OnPaletteLoadedListener {
+        void onPaletteLoaded(MediaNotificationProcessor mediaNotificationProcessor);
     }
 }

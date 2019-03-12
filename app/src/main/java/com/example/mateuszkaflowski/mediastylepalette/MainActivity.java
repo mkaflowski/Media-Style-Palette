@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
     private MediaSessionCompat mediaSessionCompat;
     private Bitmap icon;
 
-    int[] ids = {R.drawable.b, R.drawable.c, R.drawable.d, R.drawable.e,
+    int[] ids = { R.drawable.i, R.drawable.b, R.drawable.c, R.drawable.d, R.drawable.e,
             R.drawable.f, R.drawable.g, R.drawable.h};
     private int drawableId;
     int i = 0;
@@ -59,67 +59,73 @@ public class MainActivity extends Activity {
     }
 
     private void init() {
-        View background = findViewById(R.id.main_container);
+        final View background = findViewById(R.id.main_container);
 
         icon = BitmapFactory.decodeResource(getResources(),
                 drawableId);
 
         ImageView ivCover = findViewById(R.id.cover);
         ivCover.setImageResource(drawableId);
-        MediaNotificationProcessor processor = new MediaNotificationProcessor(this, icon);
+        final MediaNotificationProcessor processor = new MediaNotificationProcessor(this);
+        processor.getPaletteAsync(new MediaNotificationProcessor.OnPaletteLoadedListener() {
+            @Override
+            public void onPaletteLoaded(MediaNotificationProcessor mediaNotificationProcessor) {
+                int backgroundColor = processor.getBackgroundColor();
+                int foregroundColor = processor.getPrimaryTextColor();
+                int secondaryColor = processor.getSecondaryTextColor();
 
-        int backgroundColor = processor.getBackgroundColor();
-        int foregroundColor = processor.getPrimaryTextColor();
-        int secondaryColor = processor.getSecondaryTextColor();
+                background.setBackgroundColor(backgroundColor);
 
-        background.setBackgroundColor(backgroundColor);
+                ivPlay = findViewById(R.id.playButton);
+                ivPrevious = findViewById(R.id.previous);
+                ivRewinf = findViewById(R.id.minusButton);
+                ivFF = findViewById(R.id.plusButton);
+                ivNext = findViewById(R.id.next);
 
-        ivPlay = findViewById(R.id.playButton);
-        ivPrevious = findViewById(R.id.previous);
-        ivRewinf = findViewById(R.id.minusButton);
-        ivFF = findViewById(R.id.plusButton);
-        ivNext = findViewById(R.id.next);
+                tvTitle = findViewById(R.id.title);
+                tvArtist = findViewById(R.id.episodeTitle);
+                tvDesc = findViewById(R.id.episodeDesc);
+                tvStart = findViewById(R.id.time);
+                tvEnd = findViewById(R.id.totalTime);
 
-        tvTitle = findViewById(R.id.title);
-        tvArtist = findViewById(R.id.episodeTitle);
-        tvDesc = findViewById(R.id.episodeDesc);
-        tvStart = findViewById(R.id.time);
-        tvEnd = findViewById(R.id.totalTime);
+                tvTitle.setTextColor(foregroundColor);
+                tvArtist.setTextColor(secondaryColor);
+                tvDesc.setTextColor(foregroundColor);
 
-        tvTitle.setTextColor(foregroundColor);
-        tvArtist.setTextColor(secondaryColor);
-        tvDesc.setTextColor(foregroundColor);
+                SeekBar sb = findViewById(R.id.progressBar);
+                sb.getProgressDrawable().setColorFilter(foregroundColor, PorterDuff.Mode.SRC_ATOP);
+                sb.getThumb().setColorFilter(foregroundColor, PorterDuff.Mode.SRC_ATOP);
+                sb.getIndeterminateDrawable().setColorFilter(secondaryColor, PorterDuff.Mode.SRC_ATOP);
 
-        SeekBar sb = findViewById(R.id.progressBar);
-        sb.getProgressDrawable().setColorFilter(foregroundColor, PorterDuff.Mode.SRC_ATOP);
-        sb.getThumb().setColorFilter(foregroundColor, PorterDuff.Mode.SRC_ATOP);
-        sb.getIndeterminateDrawable().setColorFilter(secondaryColor, PorterDuff.Mode.SRC_ATOP);
+                showNotification(drawableId);
 
-        showNotification(drawableId);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Window window = getWindow();
+                    window.setStatusBarColor(backgroundColor);
+                    window.setNavigationBarColor(backgroundColor);
+                }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.setStatusBarColor(backgroundColor);
-            window.setNavigationBarColor(backgroundColor);
-        }
+                ivPlay.setColorFilter(foregroundColor);
 
-        ivPlay.setColorFilter(foregroundColor);
+                if(processor.isLight()){
+                    ivPrevious.setColorFilter(Color.DKGRAY);
+                    ivRewinf.setColorFilter(Color.DKGRAY);
+                    ivFF.setColorFilter(Color.DKGRAY);
+                    ivNext.setColorFilter(Color.DKGRAY);
+                    tvStart.setTextColor(Color.DKGRAY);
+                    tvEnd.setTextColor(Color.DKGRAY);
+                }else{
+                    ivPrevious.setColorFilter(Color.WHITE);
+                    ivRewinf.setColorFilter(Color.WHITE);
+                    ivFF.setColorFilter(Color.WHITE);
+                    ivNext.setColorFilter(Color.WHITE);
+                    tvStart.setTextColor(Color.WHITE);
+                    tvEnd.setTextColor(Color.WHITE);
+                }
+            }
+        },icon);
 
-        if(processor.isLight()){
-            ivPrevious.setColorFilter(Color.DKGRAY);
-            ivRewinf.setColorFilter(Color.DKGRAY);
-            ivFF.setColorFilter(Color.DKGRAY);
-            ivNext.setColorFilter(Color.DKGRAY);
-            tvStart.setTextColor(Color.DKGRAY);
-            tvEnd.setTextColor(Color.DKGRAY);
-        }else{
-            ivPrevious.setColorFilter(Color.WHITE);
-            ivRewinf.setColorFilter(Color.WHITE);
-            ivFF.setColorFilter(Color.WHITE);
-            ivNext.setColorFilter(Color.WHITE);
-            tvStart.setTextColor(Color.WHITE);
-            tvEnd.setTextColor(Color.WHITE);
-        }
+
     }
 
     private void showNotification(int drawableId) {

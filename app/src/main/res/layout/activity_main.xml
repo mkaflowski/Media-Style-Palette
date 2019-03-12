@@ -109,7 +109,7 @@
                     android:layout_below="@id/progressBar"
                     android:layout_marginLeft="15dp"
                     android:layout_marginStart="15dp"
-                    android:text="00:00"
+                    android:text="13:45"
                     android:textColor="#e8e8e8"
                     android:textSize="12sp" />
 
@@ -146,7 +146,7 @@
                     android:ellipsize="end"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="Track name"
+                    android:text="MediaStyle Palette"
                     android:textColor="#e8e8e8"
                     android:textSize="14sp" />
 
@@ -179,7 +179,7 @@
                     android:ellipsize="end"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="Description"
+                    android:text="GitHub library"
                     android:textColor="#e8e8e8"
                     android:textSize="14sp"
                     tools:text="Reference site about Lorem Ipsum, giving information on its origins." />
